@@ -8,7 +8,7 @@ const routes = express.Router();
 
 
 routes.post('/login',authController.Autenticacao);
-routes.use(authMiddleware);
+//routes.use(authMiddleware);
 
 routes.delete('/produto/excluir/:proId', ProdutoController.delete)
 routes.get('/lista',ProdutoController.index);
