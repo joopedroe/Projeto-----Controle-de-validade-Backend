@@ -36,7 +36,7 @@ module.exports =
     },
     
     async index(req, res){
-        const listaProduto = await Produto.find({status:true}).sort({data_validade: 'desc'});
+        const listaProduto = await Produto.find({status:true}).sort({data_validade: 'asc'});
         return res.json(listaProduto);
 
     },
