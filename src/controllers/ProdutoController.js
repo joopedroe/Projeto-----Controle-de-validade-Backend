@@ -4,24 +4,17 @@ const Produto = require('../models/Produto');
 module.exports =
 {
     async store(req, res){
-        const { codigoEntrada, quantidade, valor, data_validadeEntrada, status} = req.body;
+        const { codigoEntrada, name, quantidade, valor, data_validadeEntrada, status} = req.body;
 
         const produtoExists = await Produto.findOne({codigo: codigoEntrada, data_validade:data_validadeEntrada});
         
         if(produtoExists){
             return res.json(produtoExists);
         }
-        var config = {
-            headers: {'X-Cosmos-Token': '8C4kNbESYhlxbs4J61L53w'}
-          };
-        const response =  await axios.get(`https://api.cosmos.bluesoft.com.br/gtins/${codigoEntrada}`,config).catch(error =>{
-            console.log('ok');
-            return res.status(404).send({error: 'erro ao buscar produto'});
-        } );
+        
 
         
-        const {description:name}= response.data;
-        console.log(codigoEntrada+' - '+name+'-'+ quantidade);
+       
         
         const produto = await Produto.create({
             codigo: codigoEntrada,
@@ -43,6 +36,18 @@ module.exports =
     async delete(req, res){
         const id = req.params.proId;
         await Produto.deleteOne({_id:id});
+        return res.json({ok:true});
+    },
+
+    async alter(req, res){
+        const id = req.boby._id;
+        await Produto.findById(id,function(err, doc) {  
+            if (err) {  
+              console.error('error, no entry found');  
+            }  
+            doc.status = false;  
+            doc.save();  
+          }) 
         return res.json({ok:true});
     }
 };
