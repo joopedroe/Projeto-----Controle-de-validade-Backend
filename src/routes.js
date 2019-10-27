@@ -13,6 +13,6 @@ routes.post('/login',authController.Autenticacao);
 routes.delete('/produto/excluir/:proId', ProdutoController.delete)
 routes.get('/lista',ProdutoController.index);
 routes.post('/produto', ProdutoController.store);
-routes.post('/registrar/produto', ProdutoController.alter);
+routes.post('/retirar/produto', ProdutoController.alter);
 routes.post('/novo/usuario',UserController.newUser);
 module.exports = routes;

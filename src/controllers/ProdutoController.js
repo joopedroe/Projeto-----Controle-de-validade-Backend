@@ -41,13 +41,9 @@ module.exports =
 
     async alter(req, res){
         const id = req.boby._id;
-        await Produto.findById(id,function(err, doc) {  
-            if (err) {  
-              console.error('error, no entry found');  
-            }  
-            doc.status = false;  
-            doc.save();  
-          }) 
+        const produto = await Produto.findById(id);
+          produto.status=false;
+          produto.save();
         return res.json({ok:true});
     }
 };
