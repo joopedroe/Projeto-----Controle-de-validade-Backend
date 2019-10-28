@@ -41,7 +41,13 @@ module.exports =
 
     async alter(req, res){
         const id = req.params.proId;
-        const produto = await Produto.findById(id);
-        return res.json(produto);
+        await Produto.findById(id,function(err, doc) {  
+            if (err) {  
+              console.error('error, no entry found');  
+            }  
+            doc.status = false;  
+            doc.save();  
+          }) 
+        return res.json({ok:true});
     }
 };
