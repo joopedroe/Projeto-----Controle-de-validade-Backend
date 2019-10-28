@@ -40,8 +40,8 @@ module.exports =
     },
 
     async alter(req, res){
-        const id = req.boby._id;
-        const produto = await Produto.findById(id);
+        const { _id } = req.boby;
+        const produto = await Produto.findById(_id);
         return res.json(produto);
     }
 };
