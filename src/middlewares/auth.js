@@ -3,8 +3,8 @@ const authConfig = require('../config/auth.json');
 
 
 module.exports=(req,res,next)=>{
-    const authHeader = req.headers.authorizatian;
-
+    const authHeader = req.headers.authorization;
+    console.log(req.headers.authorization);
     if(!authHeader)
         return res.status(401).send({error: 'Token não informado'});
 
@@ -22,6 +22,6 @@ module.exports=(req,res,next)=>{
         if(err) return res.status(401).send({error:'Token invalido'});
 
         req.userId = decoded.id;
-        return res.status(200).next();
+        return next();
     })
 }
