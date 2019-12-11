@@ -9,6 +9,9 @@ mongoose.connect('mongodb+srv://joopedroe:92692012@cluster0-vqe16.mongodb.net/te
 });
 
 server.use(function(req, res, next) {
+    if(req.method=="OPTIONS"){
+        res.setHeader(status(200));
+    }
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
