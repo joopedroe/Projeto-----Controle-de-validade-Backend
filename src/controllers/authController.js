@@ -8,8 +8,6 @@ const authConfig = require('../config/auth');
 module.exports={
     async Autenticacao(req, res){
         const {username, password}=req.body;
-        console.log(req.body);
-        console.log(password);
         const user = await User.findOne({username});
 
         if (!user){
