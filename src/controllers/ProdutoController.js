@@ -6,10 +6,17 @@ module.exports =
     async store(req, res){
         const { codigoEntrada, name, quantidade, valor, data_validadeEntrada, status} = req.body;
 
-        const produtoExists = await Produto.findOne({codigo: codigoEntrada, data_validade:data_validadeEntrada});
+        const produtoExists = await Produto.findOne({codigo: codigoEntrada, data_validade:data_validadeEntrada,status:true});
         
         if(produtoExists){
-            return res.json(produtoExists);
+            const produto = await Produto.findById(produtoExists.id,function(err, doc) {  
+                if (err) {  
+                  console.error('error, no entry found');  
+                }                 
+                doc.quantidade = parseInt(quantidade)+parseInt(produtoExists.quantidade);  
+                doc.save();  
+              }) 
+            return res.json(produto);
         }
         
 
